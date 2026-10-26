@@ -9,7 +9,7 @@ const story =
 
 export function About() {
   return (
-    <section id="about" className="border-t border-line bg-bg-2">
+    <section id="about" className="border-t border-line bg-surface/30 backdrop-blur-[2px]">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-12 lg:py-32">
         <div className="flex items-center gap-4">
           <Image
@@ -17,7 +17,7 @@ export function About() {
             alt="Mayank Jha"
             width={460}
             height={460}
-            className="size-16 rounded-full object-cover ring-2 ring-accent/60 ring-offset-4 ring-offset-bg-2 sm:size-20"
+            className="size-16 rounded-full object-cover ring-2 ring-accent/60 ring-offset-4 ring-offset-bg sm:size-20"
           />
           <RevealText text="About" className="display text-[clamp(2.5rem,6vw,5rem)] leading-none [--wdth:132] [--wght:800]" />
         </div>
@@ -35,7 +35,7 @@ export function About() {
                 <li key={r.company} className="relative">
                   <span
                     aria-hidden
-                    className={`absolute -left-[37px] top-1.5 size-2.5 rounded-full ring-4 ring-bg-2 ${i === 0 ? "bg-accent" : "bg-muted/50"}`}
+                    className={`absolute -left-[37px] top-1.5 size-2.5 rounded-full ring-4 ring-bg ${i === 0 ? "bg-accent" : "bg-muted/50"}`}
                   />
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     <p className="text-lg font-semibold tracking-[-0.02em]">

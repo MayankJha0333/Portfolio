@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Ambient } from "@/components/Ambient";
 import { CursorLabel } from "@/components/CursorLabel";
 import { Intro } from "@/components/Intro";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f6f6fb" },
-    { media: "(prefers-color-scheme: dark)", color: "#07081a" },
+    { media: "(prefers-color-scheme: dark)", color: "#050616" },
   ],
 };
 
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-[100dvh]">
         <Intro />
+        <Ambient />
         <ScrollProgress />
         <SmoothScroll />
         <SpotlightTracker />

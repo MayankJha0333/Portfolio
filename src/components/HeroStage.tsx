@@ -85,7 +85,6 @@ export function HeroStage({ children }: { children: React.ReactNode }) {
         <div className="aurora-a absolute -left-[15%] -top-[25%] h-[85%] w-[70%] rounded-full bg-[radial-gradient(closest-side,var(--glow-a),transparent)]" />
         <div className="aurora-b absolute -right-[10%] top-[10%] h-[75%] w-[60%] rounded-full bg-[radial-gradient(closest-side,var(--glow-b),transparent)]" />
         <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-data-[pointer=on]/stage:opacity-100 bg-[radial-gradient(520px_circle_at_var(--gx,50%)_var(--gy,40%),var(--glow-a),transparent_70%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
       </div>
 
       {/* Rulers (desktop only) */}

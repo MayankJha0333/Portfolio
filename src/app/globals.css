@@ -16,10 +16,13 @@
   --line-strong: rgb(12 13 38 / 0.18);
   --accent: #4f3cff;
   --accent-2: #0ea5e9;
+  --accent-3: #d946ef;
   --accent-ink: #ffffff;
+  --on-gradient: #ffffff;
   --grid: rgb(12 13 38 / 0.045);
   --glow-a: rgb(79 60 255 / 0.16);
   --glow-b: rgb(14 165 233 / 0.12);
+  --glow-c: rgb(217 70 239 / 0.08);
   --highlight: rgb(255 255 255 / 0.9);
   --grain: 0.028;
   --shadow: 0 1px 2px rgb(12 13 38 / 0.04), 0 12px 32px -12px rgb(12 13 38 / 0.12), 0 40px 80px -40px rgb(40 30 120 / 0.25);
@@ -27,46 +30,52 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #07081a;
-  --bg-2: #0a0b22;
-  --surface: #0f1130;
-  --surface-2: #161940;
-  --ink: #f3f3ff;
-  --muted: #9b9ec8;
-  --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.16);
-  --accent: #8577ff;
-  --accent-2: #38d6ff;
-  --accent-ink: #07081a;
-  --grid: rgb(255 255 255 / 0.035);
-  --glow-a: rgb(110 90 255 / 0.32);
-  --glow-b: rgb(56 214 255 / 0.16);
-  --highlight: rgb(255 255 255 / 0.07);
-  --grain: 0.05;
-  --shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 80px -30px rgb(0 0 0 / 0.8);
-  color-scheme: dark;
+  --bg: #050616;
+    --bg-2: #090a22;
+    --surface: #0d0f2c;
+    --surface-2: #151840;
+    --ink: #f4f4ff;
+    --muted: #a0a3cc;
+    --line: rgb(255 255 255 / 0.08);
+    --line-strong: rgb(255 255 255 / 0.18);
+    --accent: #8b7dff;
+    --accent-2: #3dd8ff;
+    --accent-3: #e879f9;
+    --accent-ink: #050616;
+    --on-gradient: #050616;
+    --grid: rgb(255 255 255 / 0.035);
+    --glow-a: rgb(124 92 255 / 0.34);
+    --glow-b: rgb(61 216 255 / 0.18);
+    --glow-c: rgb(232 121 249 / 0.14);
+    --highlight: rgb(255 255 255 / 0.08);
+    --grain: 0.05;
+    --shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 80px -30px rgb(0 0 0 / 0.85);
+    color-scheme: dark;
 }
 
 /* No-JS fallback: follow the system. With JS, the theme script picks dark unless light was chosen. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #07081a;
-    --bg-2: #0a0b22;
-    --surface: #0f1130;
-    --surface-2: #161940;
-    --ink: #f3f3ff;
-    --muted: #9b9ec8;
+    --bg: #050616;
+    --bg-2: #090a22;
+    --surface: #0d0f2c;
+    --surface-2: #151840;
+    --ink: #f4f4ff;
+    --muted: #a0a3cc;
     --line: rgb(255 255 255 / 0.08);
-    --line-strong: rgb(255 255 255 / 0.16);
-    --accent: #8577ff;
-    --accent-2: #38d6ff;
-    --accent-ink: #07081a;
+    --line-strong: rgb(255 255 255 / 0.18);
+    --accent: #8b7dff;
+    --accent-2: #3dd8ff;
+    --accent-3: #e879f9;
+    --accent-ink: #050616;
+    --on-gradient: #050616;
     --grid: rgb(255 255 255 / 0.035);
-    --glow-a: rgb(110 90 255 / 0.32);
-    --glow-b: rgb(56 214 255 / 0.16);
-    --highlight: rgb(255 255 255 / 0.07);
+    --glow-a: rgb(124 92 255 / 0.34);
+    --glow-b: rgb(61 216 255 / 0.18);
+    --glow-c: rgb(232 121 249 / 0.14);
+    --highlight: rgb(255 255 255 / 0.08);
     --grain: 0.05;
-    --shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 80px -30px rgb(0 0 0 / 0.8);
+    --shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 80px -30px rgb(0 0 0 / 0.85);
     color-scheme: dark;
   }
 }
@@ -140,6 +149,10 @@ body::after {
 
 .bg-gradient {
   background: linear-gradient(110deg, var(--accent), var(--accent-2));
+}
+
+.text-on-gradient {
+  color: var(--on-gradient);
 }
 
 /* Glass surfaces: hairline edge plus a 1px highlight on top, like light catching an edge. */
@@ -299,6 +312,9 @@ html.lenis body {
   }
   .aurora-b {
     animation: drift-b 26s ease-in-out infinite alternate;
+  }
+  .aurora-c {
+    animation: drift-a 30s ease-in-out -8s infinite alternate-reverse;
   }
   .pulse-dot::after {
     content: "";

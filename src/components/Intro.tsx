@@ -3,7 +3,7 @@ export function Intro() {
   return (
     <div
       aria-hidden
-      className="intro fixed inset-0 z-[90] flex-col justify-between bg-[#07081a] px-6 py-8 text-[#f3f3ff] sm:px-12 sm:py-12"
+      className="intro fixed inset-0 z-[90] flex-col justify-between bg-[#050616] px-6 py-8 text-[#f3f3ff] sm:px-12 sm:py-12"
     >
       <p className="display text-xl [--wdth:118] [--wght:800]">Mayank Jha</p>
       <div>

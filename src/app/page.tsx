@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { MoreProjects } from "@/components/MoreProjects";
 import { Nav } from "@/components/Nav";
 import { OpenSource } from "@/components/OpenSource";
-import { Reel } from "@/components/Reel";
+import { ShatterReel } from "@/components/ShatterReel";
 import { Toolkit } from "@/components/Toolkit";
 import { Work } from "@/components/Work";
 
@@ -14,8 +14,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Reel />
-        <div className="h-16 lg:h-0" />
+        <ShatterReel />
         <Toolkit />
         <Work />
         <OpenSource />
