@@ -1,0 +1,32 @@
+<template>
+  <style>
+    @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    #root { position: absolute; inset: 0; font-family: "Geist", sans-serif; }
+    #klaude-text { position: absolute; left: 192px; top: 360px; width: 470px; }
+    #klaude-name { font-size: 88px; font-weight: 620; letter-spacing: -0.045em; line-height: 1; color: var(--ink); white-space: nowrap; }
+    #klaude-line { margin-top: 28px; font-size: 38px; font-weight: 420; line-height: 1.2; letter-spacing: -0.015em; color: var(--muted); }
+    #klaude-tag { margin-top: 34px; font-family: "Geist Mono", monospace; font-size: 28px; letter-spacing: 0.01em; color: var(--accent); }
+    #klaude-card { position: absolute; left: 700px; top: 251px; width: 1028px; height: 578px; border-radius: 28px; overflow: hidden; background: #17181a; box-shadow: 0 40px 120px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.08); }
+    #klaude-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .w, .l { display: inline-block; }
+  </style>
+  <div data-hf-id="hf-hbw9" id="root" data-composition-id="klaude" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-be6y" id="klaude-card"><img data-hf-id="hf-bj27" id="klaude-img" src="assets/work/cover-klaude.png" alt="Klaude screenshot" /></div>
+    <div data-hf-id="hf-5xzp" id="klaude-text">
+      <div data-hf-id="hf-6pwh" id="klaude-name"><span data-hf-id="hf-3425" class="l" id="klaude-l0">K</span><span data-hf-id="hf-czhf" class="l" id="klaude-l1">l</span><span data-hf-id="hf-gyrh" class="l" id="klaude-l2">a</span><span data-hf-id="hf-5d6m" class="l" id="klaude-l3">u</span><span data-hf-id="hf-4ksc" class="l" id="klaude-l4">d</span><span data-hf-id="hf-if9w" class="l" id="klaude-l5">e</span></div>
+      <div data-hf-id="hf-7i46" id="klaude-line"><span data-hf-id="hf-e5wj" class="w" id="klaude-w0">The</span> <span data-hf-id="hf-o4ir" class="w" id="klaude-w1">Claude</span> <span data-hf-id="hf-nbvz" class="w" id="klaude-w2">Code</span> <span data-hf-id="hf-1bpg" class="w" id="klaude-w3">agent,</span> <span data-hf-id="hf-vxq0" class="w" id="klaude-w4">inside</span> <span data-hf-id="hf-jbj0" class="w" id="klaude-w5">a</span> <span data-hf-id="hf-i00p" class="w" id="klaude-w6">VS</span> <span data-hf-id="hf-qkl2" class="w" id="klaude-w7">Code</span> <span data-hf-id="hf-e8q8" class="w" id="klaude-w8">panel.</span></div>
+      <div data-hf-id="hf-nwsa" id="klaude-tag">TypeScript · VS Code API</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#klaude-card", { opacity: 0, x: 260, filter: "blur(18px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+    tl.fromTo("#klaude-name .l", { opacity: 0.25, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out", stagger: 0.035 }, 0.12);
+    tl.fromTo("#klaude-line .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.05 }, 0.32);
+    tl.fromTo("#klaude-tag", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.62);
+    tl.to("#klaude-card", { opacity: 0, x: -200, filter: "blur(16px)", duration: 0.26, ease: "power3.in" }, 2.72);
+      tl.to("#klaude-text", { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" }, 2.7);
+    window.__timelines["klaude"] = tl;
+  </script>
+</template>

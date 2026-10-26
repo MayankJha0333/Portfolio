@@ -1,0 +1,32 @@
+<template>
+  <style>
+    @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    #root { position: absolute; inset: 0; font-family: "Geist", sans-serif; }
+    #dovli-text { position: absolute; left: 192px; top: 360px; width: 470px; }
+    #dovli-name { font-size: 88px; font-weight: 620; letter-spacing: -0.045em; line-height: 1; color: var(--ink); white-space: nowrap; }
+    #dovli-line { margin-top: 28px; font-size: 38px; font-weight: 420; line-height: 1.2; letter-spacing: -0.015em; color: var(--muted); }
+    #dovli-tag { margin-top: 34px; font-family: "Geist Mono", monospace; font-size: 28px; letter-spacing: 0.01em; color: var(--accent); }
+    #dovli-card { position: absolute; left: 700px; top: 251px; width: 1028px; height: 578px; border-radius: 28px; overflow: hidden; background: #17181a; box-shadow: 0 40px 120px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.08); }
+    #dovli-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .w, .l { display: inline-block; }
+  </style>
+  <div data-hf-id="hf-7plr" id="root" data-composition-id="dovli" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-ef94" id="dovli-card"><img data-hf-id="hf-bktj" id="dovli-img" src="assets/work/cover-dovli.png" alt="Dovli screenshot" /></div>
+    <div data-hf-id="hf-g0a3" id="dovli-text">
+      <div data-hf-id="hf-i60r" id="dovli-name"><span data-hf-id="hf-mkv6" class="l" id="dovli-l0">D</span><span data-hf-id="hf-cytg" class="l" id="dovli-l1">o</span><span data-hf-id="hf-orxm" class="l" id="dovli-l2">v</span><span data-hf-id="hf-myyf" class="l" id="dovli-l3">l</span><span data-hf-id="hf-sf65" class="l" id="dovli-l4">i</span></div>
+      <div data-hf-id="hf-ee0g" id="dovli-line"><span data-hf-id="hf-ngvx" class="w" id="dovli-w0">Docs,</span> <span data-hf-id="hf-l8jz" class="w" id="dovli-w1">to-dos</span> <span data-hf-id="hf-zpjj" class="w" id="dovli-w2">and</span> <span data-hf-id="hf-r26x" class="w" id="dovli-w3">whiteboards</span> <span data-hf-id="hf-2y4h" class="w" id="dovli-w4">that</span> <span data-hf-id="hf-lk4u" class="w" id="dovli-w5">sync</span> <span data-hf-id="hf-von2" class="w" id="dovli-w6">everywhere.</span></div>
+      <div data-hf-id="hf-ilb2" id="dovli-tag">Next.js · Expo · MCP</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dovli-card", { opacity: 0, scale: 1.1, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 0);
+    tl.fromTo("#dovli-name .l", { opacity: 0.25, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out", stagger: 0.035 }, 0.12);
+    tl.fromTo("#dovli-line .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.05 }, 0.32);
+    tl.fromTo("#dovli-tag", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.62);
+    tl.to("#dovli-card", { opacity: 0, x: -200, filter: "blur(16px)", duration: 0.26, ease: "power3.in" }, 2.72);
+      tl.to("#dovli-text", { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" }, 2.7);
+    window.__timelines["dovli"] = tl;
+  </script>
+</template>

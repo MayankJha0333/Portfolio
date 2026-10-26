@@ -1,0 +1,31 @@
+<template>
+  <style>
+    @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    #root { position: absolute; inset: 0; font-family: "Geist", sans-serif; }
+    #sahayak-text { position: absolute; left: 192px; top: 360px; width: 470px; }
+    #sahayak-name { font-size: 88px; font-weight: 620; letter-spacing: -0.045em; line-height: 1; color: var(--ink); white-space: nowrap; }
+    #sahayak-line { margin-top: 28px; font-size: 38px; font-weight: 420; line-height: 1.2; letter-spacing: -0.015em; color: var(--muted); }
+    #sahayak-tag { margin-top: 34px; font-family: "Geist Mono", monospace; font-size: 28px; letter-spacing: 0.01em; color: var(--accent); }
+    #sahayak-card { position: absolute; left: 700px; top: 251px; width: 1028px; height: 578px; border-radius: 28px; overflow: hidden; background: #17181a; box-shadow: 0 40px 120px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.08); }
+    #sahayak-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .w, .l { display: inline-block; }
+  </style>
+  <div data-hf-id="hf-axp3" id="root" data-composition-id="sahayak" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-25q0" id="sahayak-card"><img data-hf-id="hf-cier" id="sahayak-img" src="assets/work/cover-sahayak.png" alt="Sahayak screenshot" /></div>
+    <div data-hf-id="hf-tc8b" id="sahayak-text">
+      <div data-hf-id="hf-u7y3" id="sahayak-name"><span data-hf-id="hf-73cj" class="l" id="sahayak-l0">S</span><span data-hf-id="hf-mlie" class="l" id="sahayak-l1">a</span><span data-hf-id="hf-tmy8" class="l" id="sahayak-l2">h</span><span data-hf-id="hf-tqlc" class="l" id="sahayak-l3">a</span><span data-hf-id="hf-dawt" class="l" id="sahayak-l4">y</span><span data-hf-id="hf-755e" class="l" id="sahayak-l5">a</span><span data-hf-id="hf-luvp" class="l" id="sahayak-l6">k</span></div>
+      <div data-hf-id="hf-uhww" id="sahayak-line"><span data-hf-id="hf-6zm4" class="w" id="sahayak-w0">House</span> <span data-hf-id="hf-ovty" class="w" id="sahayak-w1">help</span> <span data-hf-id="hf-bigt" class="w" id="sahayak-w2">in</span> <span data-hf-id="hf-gi7u" class="w" id="sahayak-w3">ten</span> <span data-hf-id="hf-6yn7" class="w" id="sahayak-w4">minutes,</span> <span data-hf-id="hf-ztql" class="w" id="sahayak-w5">tracked</span> <span data-hf-id="hf-ewu6" class="w" id="sahayak-w6">live.</span></div>
+      <div data-hf-id="hf-xw75" id="sahayak-tag">Expo · Firebase · Razorpay</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#sahayak-card", { clipPath: "inset(0% 0% 0% 100% round 28px)" }, { clipPath: "inset(0% 0% 0% 0% round 28px)", duration: 0.55, ease: "power3.inOut" }, 0);
+    tl.fromTo("#sahayak-name .l", { opacity: 0.25, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out", stagger: 0.035 }, 0.12);
+    tl.fromTo("#sahayak-line .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.05 }, 0.32);
+    tl.fromTo("#sahayak-tag", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.62);
+    tl.to(["#sahayak-card", "#sahayak-text"], { opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 2.62);
+    window.__timelines["sahayak"] = tl;
+  </script>
+</template>

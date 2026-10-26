@@ -1,0 +1,32 @@
+<template>
+  <style>
+    @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    #root { position: absolute; inset: 0; font-family: "Geist", sans-serif; }
+    #crest-text { position: absolute; left: 192px; top: 360px; width: 470px; }
+    #crest-name { font-size: 88px; font-weight: 620; letter-spacing: -0.045em; line-height: 1; color: var(--ink); white-space: nowrap; }
+    #crest-line { margin-top: 28px; font-size: 38px; font-weight: 420; line-height: 1.2; letter-spacing: -0.015em; color: var(--muted); }
+    #crest-tag { margin-top: 34px; font-family: "Geist Mono", monospace; font-size: 28px; letter-spacing: 0.01em; color: var(--accent); }
+    #crest-card { position: absolute; left: 700px; top: 251px; width: 1028px; height: 578px; border-radius: 28px; overflow: hidden; background: #17181a; box-shadow: 0 40px 120px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.08); }
+    #crest-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .w, .l { display: inline-block; }
+  </style>
+  <div data-hf-id="hf-9sii" id="root" data-composition-id="crest" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-ynd1" id="crest-card"><img data-hf-id="hf-nrnc" id="crest-img" src="assets/work/cover-crestclip.png" alt="CrestClip screenshot" /></div>
+    <div data-hf-id="hf-9ufm" id="crest-text">
+      <div data-hf-id="hf-m4ay" id="crest-name"><span data-hf-id="hf-5d8w" class="l" id="crest-l0">C</span><span data-hf-id="hf-vo5s" class="l" id="crest-l1">r</span><span data-hf-id="hf-zrh8" class="l" id="crest-l2">e</span><span data-hf-id="hf-fye9" class="l" id="crest-l3">s</span><span data-hf-id="hf-mb2x" class="l" id="crest-l4">t</span><span data-hf-id="hf-mdrz" class="l" id="crest-l5">C</span><span data-hf-id="hf-nysb" class="l" id="crest-l6">l</span><span data-hf-id="hf-evz3" class="l" id="crest-l7">i</span><span data-hf-id="hf-9bgx" class="l" id="crest-l8">p</span></div>
+      <div data-hf-id="hf-pkp9" id="crest-line"><span data-hf-id="hf-nvaz" class="w" id="crest-w0">Finds</span> <span data-hf-id="hf-7epr" class="w" id="crest-w1">the</span> <span data-hf-id="hf-gk24" class="w" id="crest-w2">moments</span> <span data-hf-id="hf-jq6l" class="w" id="crest-w3">viewers</span> <span data-hf-id="hf-8n75" class="w" id="crest-w4">rewatch,</span> <span data-hf-id="hf-fqon" class="w" id="crest-w5">then</span> <span data-hf-id="hf-43ua" class="w" id="crest-w6">clips</span> <span data-hf-id="hf-yw2m" class="w" id="crest-w7">them.</span></div>
+      <div data-hf-id="hf-fve6" id="crest-tag">React · Gemini · ffmpeg</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#crest-card", { opacity: 0, x: 260, filter: "blur(18px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+    tl.fromTo("#crest-name .l", { opacity: 0.25, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out", stagger: 0.035 }, 0.12);
+    tl.fromTo("#crest-line .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.05 }, 0.32);
+    tl.fromTo("#crest-tag", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.62);
+    tl.to("#crest-card", { opacity: 0, x: -200, filter: "blur(16px)", duration: 0.26, ease: "power3.in" }, 2.72);
+      tl.to("#crest-text", { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" }, 2.7);
+    window.__timelines["crest"] = tl;
+  </script>
+</template>
