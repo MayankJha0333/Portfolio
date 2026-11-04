@@ -6,7 +6,7 @@ import { RevealText } from "./RevealText";
 import { ScrollWords } from "./ScrollWords";
 
 const story =
-  "I like owning a product end to end: the design, the code, the release and whatever breaks after it. Most days that means React, Next.js and Node, with Expo or Flutter for mobile. Lately I'm going deeper on RAG pipelines and system design at scale.";
+  "I like owning a product end to end: the design, the code, the release and whatever breaks after it. Most days that means React, Next.js and Node, with Expo or Flutter for mobile. Lately I'm going deeper on agentic operating systems, where AI agents plan, remember and work together.";
 
 export function About() {
   return (
