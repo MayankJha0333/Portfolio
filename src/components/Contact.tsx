@@ -1,7 +1,7 @@
-import { ArrowUpRight, GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react/ssr";
+import { GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react/ssr";
 import { profile } from "@/content/site";
+import { ContactForm } from "./ContactForm";
 import { CopyEmail } from "./CopyEmail";
-import { Magnetic } from "./Magnetic";
 import { RevealText } from "./RevealText";
 import { StretchName } from "./StretchName";
 
@@ -10,8 +10,6 @@ const socials = [
   { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinLogo },
   { label: "X", href: profile.x, Icon: XLogo },
 ];
-
-const ring = "Let's build something together · Let's build something together · ";
 
 export function Contact() {
   return (
@@ -22,13 +20,13 @@ export function Contact() {
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] bg-[radial-gradient(60%_80%_at_50%_100%,var(--glow-a),transparent_70%)]"
       />
       <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-12 lg:pt-32">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-8">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
             <RevealText
               text="Building something? I'd like to hear about it."
-              className="display max-w-[16ch] text-[clamp(2.5rem,5.6vw,5rem)] leading-[0.95] [--wdth:110] [--wght:800]"
+              className="display max-w-[16ch] text-[clamp(2.5rem,4.2vw,4rem)] leading-[0.95] [--wdth:110] [--wght:800]"
             />
-            <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-muted">
+            <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-muted">
               Open to collaborating on full-stack, AI-powered and product-led projects.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -36,30 +34,8 @@ export function Contact() {
               <p className="text-sm text-muted select-all">{profile.email}</p>
             </div>
           </div>
-          <div className="lg:col-span-4 lg:justify-self-end">
-            <Magnetic strength={0.4}>
-              <a
-                href={`mailto:${profile.email}`}
-                aria-label="Email me"
-                className="group relative grid size-48 place-items-center sm:size-56"
-              >
-                {/* Text circling the button */}
-                <svg viewBox="0 0 200 200" aria-hidden className="spin-slow absolute inset-0 size-full text-muted">
-                  <defs>
-                    <path id="ring" d="M100,100 m-86,0 a86,86 0 1,1 172,0 a86,86 0 1,1 -172,0" />
-                  </defs>
-                  <text className="fill-current text-[11.5px] font-medium tracking-[0.12em]">
-                    <textPath href="#ring">{ring}</textPath>
-                  </text>
-                </svg>
-                <span className="bg-gradient relative grid size-32 place-items-center rounded-full text-accent-ink shadow-[0_20px_60px_-15px_var(--accent)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 sm:size-36">
-                  <span className="flex items-center gap-1 text-base font-semibold">
-                    Email me
-                    <ArrowUpRight size={16} weight="bold" className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </span>
-                </span>
-              </a>
-            </Magnetic>
+          <div className="lg:col-span-7">
+            <ContactForm />
           </div>
         </div>
 

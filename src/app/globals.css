@@ -132,6 +132,15 @@ body::after {
   outline-offset: 3px;
   border-radius: 6px;
 }
+/* Form fields and script-focused panels keep their own corners; those panels need no ring. */
+input:focus-visible,
+textarea:focus-visible,
+[tabindex="-1"]:focus-visible {
+  border-radius: revert-layer;
+}
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
 
 /* Display face: Anybody's width axis is the brand. Widths are set per use. */
 .display {

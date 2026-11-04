@@ -15,6 +15,18 @@ npm run build
 Everything visible (projects, open-source PRs, experience, toolkit) lives in `src/content/site.ts`.
 Project screenshots are in `public/work/`.
 
+## Contact form
+
+The form posts to `src/app/api/contact/route.ts`, which emails the message through [Resend](https://resend.com). Set these in `.env.local` and in your host's environment settings:
+
+```bash
+RESEND_API_KEY=re_xxx                         # required
+CONTACT_FROM="Portfolio <hello@yourdomain>"   # optional; needs a domain verified in Resend
+CONTACT_TO=you@example.com                    # optional; defaults to profile.email
+```
+
+Without `CONTACT_FROM`, mail comes from `onboarding@resend.dev`, which Resend only delivers to the address on your Resend account. Without an API key, visitors see an error with your email address, and their message stays in the form.
+
 ## Showreel
 
 `showreel/` is a HyperFrames project: `index.html` mounts one scene per project from `compositions/`.
