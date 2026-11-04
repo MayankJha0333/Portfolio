@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle, CircleNotch } from "@phosphor-icons/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { profile } from "@/content/site";
+import { GlassFill } from "./GlassFill";
 
 type Status =
   | { state: "idle" | "sending" }
@@ -122,8 +123,9 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={sending}
-          className="group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-bg transition-[transform,background-color,color,opacity] duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-accent-ink disabled:translate-y-0 disabled:opacity-70"
+          className="glass-link group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-bg disabled:opacity-70"
         >
+          <GlassFill />
           {sending ? "Sending" : "Send message"}
           {sending ? (
             <CircleNotch size={16} weight="bold" className="animate-spin" />

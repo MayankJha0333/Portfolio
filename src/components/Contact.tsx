@@ -2,6 +2,7 @@ import { GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react/ssr";
 import { profile } from "@/content/site";
 import { ContactForm } from "./ContactForm";
 import { CopyEmail } from "./CopyEmail";
+import { GlassFill } from "./GlassFill";
 import { RevealText } from "./RevealText";
 import { StretchName } from "./StretchName";
 
@@ -49,8 +50,9 @@ export function Contact() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="grid size-11 place-items-center rounded-full text-muted transition hover:-translate-y-0.5 hover:bg-surface-2 hover:text-ink"
+                  className="glass-link grid size-11 place-items-center rounded-full text-muted"
                 >
+                  <GlassFill />
                   <Icon size={20} weight="bold" />
                 </a>
               </li>

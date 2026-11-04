@@ -1,6 +1,7 @@
 import { ArrowUpRight, FileText } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
 import { education, experience, profile } from "@/content/site";
+import { GlassFill } from "./GlassFill";
 import { RevealText } from "./RevealText";
 import { ScrollWords } from "./ScrollWords";
 
@@ -34,8 +35,9 @@ export function About() {
               href={profile.resume}
               target="_blank"
               rel="noreferrer"
-              className="glass inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-line-strong"
+              className="glass glass-link inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium"
             >
+              <GlassFill />
               <FileText size={16} weight="bold" />
               Read my resume
             </a>
@@ -43,8 +45,9 @@ export function About() {
               href={profile.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="glass inline-flex h-11 items-center gap-1.5 rounded-full px-5 text-sm font-medium transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-line-strong"
+              className="glass glass-link inline-flex h-11 items-center gap-1.5 rounded-full px-5 text-sm font-medium"
             >
+              <GlassFill />
               LinkedIn
               <ArrowUpRight size={14} weight="bold" />
             </a>

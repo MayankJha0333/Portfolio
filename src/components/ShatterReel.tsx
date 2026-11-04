@@ -4,6 +4,7 @@ import { Pause, Play } from "@phosphor-icons/react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { featured } from "@/content/site";
+import { GlassFill } from "./GlassFill";
 import { damp, rand, triangulate } from "./shards";
 import { Showreel } from "./Showreel";
 
@@ -474,8 +475,9 @@ export function ShatterReel() {
             type="button"
             onClick={() => setUserPaused(playing)}
             aria-label={playing ? "Pause showreel" : "Play showreel"}
-            className="glass grid size-12 shrink-0 place-items-center rounded-full transition hover:border-line-strong active:scale-95"
+            className="glass glass-link grid size-12 shrink-0 place-items-center rounded-full"
           >
+            <GlassFill />
             {playing ? <Pause size={16} weight="fill" /> : <Play size={16} weight="fill" />}
           </button>
         </motion.div>

@@ -1,5 +1,6 @@
 import { ArrowDown, EnvelopeSimple } from "@phosphor-icons/react/ssr";
 import { profile } from "@/content/site";
+import { GlassFill } from "./GlassFill";
 import { HeroStage } from "./HeroStage";
 import { Magnetic } from "./Magnetic";
 
@@ -19,24 +20,21 @@ export function Hero() {
             <Magnetic>
               <a
                 href="#work"
-                className="group relative inline-flex h-14 items-center gap-2 overflow-hidden rounded-full bg-ink px-7 text-[15px] font-medium text-bg shadow-[0_10px_30px_-10px_var(--accent)]"
+                className="glass-link group inline-flex h-14 items-center gap-2 rounded-full bg-ink px-7 text-[15px] font-medium text-bg shadow-[0_10px_30px_-10px_var(--accent)]"
               >
-                {/* Gradient sweeps up from below on hover */}
-                <span
-                  aria-hidden
-                  className="bg-gradient absolute inset-0 translate-y-full rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
-                />
-                <span className="relative">See my work</span>
-                <ArrowDown size={16} weight="bold" className="relative transition-transform duration-300 group-hover:translate-y-0.5" />
+                <GlassFill />
+                See my work
+                <ArrowDown size={16} weight="bold" className="transition-transform duration-300 group-hover:translate-y-0.5" />
               </a>
             </Magnetic>
             <Magnetic>
               <a
-                href={`mailto:${profile.email}`}
-                className="glass inline-flex h-14 items-center gap-2 rounded-full px-7 text-[15px] font-medium transition-colors hover:border-line-strong"
+                href="#contact"
+                className="glass glass-link inline-flex h-14 items-center gap-2 rounded-full px-7 text-[15px] font-medium"
               >
+                <GlassFill />
                 <EnvelopeSimple size={16} weight="bold" />
-                Email me
+                Contact me
               </a>
             </Magnetic>
           </div>

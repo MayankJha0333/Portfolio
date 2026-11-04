@@ -28,7 +28,8 @@ export function Nav() {
 
   // Highlight the section in view.
   useEffect(() => {
-    const ids = links.map((l) => l.href.slice(1));
+    // "top" has no link, so reaching the hero clears the highlight.
+    const ids = ["top", ...links.map((l) => l.href.slice(1))];
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

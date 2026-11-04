@@ -2,6 +2,7 @@
 
 import { Check, Copy } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
+import { GlassFill } from "./GlassFill";
 
 export function CopyEmail({ email }: { email: string }) {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
@@ -25,8 +26,9 @@ export function CopyEmail({ email }: { email: string }) {
     <button
       type="button"
       onClick={copy}
-      className="glass inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium transition hover:border-line-strong active:scale-[0.98]"
+      className="glass glass-link inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium"
     >
+      <GlassFill />
       {state === "copied" ? <Check size={16} weight="bold" /> : <Copy size={16} weight="bold" />}
       <span aria-live="polite">
         {state === "copied" ? "Copied" : state === "failed" ? "Copy failed, select the address" : "Copy address"}

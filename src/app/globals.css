@@ -220,15 +220,21 @@ textarea:focus-visible,
 }
 
 /*
-  Glass lock: on hover, six triangles of the product colour fly in and lock into a
-  solid fill. The showreel's shatter at button size. --tint is set by ProjectLinks.
+  Glass lock: on hover, six triangles of colour fly in and lock into a solid fill.
+  The showreel's shatter at button size. Uses the theme accent unless a parent sets
+  --tint and --tint-ink, as ProjectLinks does with each product's colour.
 */
 .glass-link {
   --speed: 350ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --fill: var(--tint, var(--accent));
+  --fill-ink: var(--tint-ink, var(--accent-ink));
   position: relative;
   isolation: isolate;
-  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
+  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease), scale 200ms var(--ease);
+}
+.glass-link:not(:disabled):active {
+  scale: 0.98;
 }
 .glass-link:focus-visible {
   border-radius: 9999px;
@@ -245,7 +251,7 @@ textarea:focus-visible,
 .glass-shard {
   position: absolute;
   inset: 0;
-  background: var(--tint);
+  background: var(--fill);
   opacity: 0;
 }
 .glass-shard {
@@ -266,20 +272,20 @@ textarea:focus-visible,
   transform: none;
 }
 .glass-link:focus-visible {
-  color: #07081a;
-  border-color: var(--tint);
+  color: var(--fill-ink);
+  border-color: var(--fill);
 }
 /* Hover only where hovering exists, so a tap doesn't leave the button stuck in colour. */
 @media (hover: hover) {
-  .glass-link:hover {
-    color: #07081a;
-    border-color: var(--tint);
+  .glass-link:not(:disabled):hover {
+    color: var(--fill-ink);
+    border-color: var(--fill);
   }
-  .glass-link:hover .glass-solid {
+  .glass-link:not(:disabled):hover .glass-solid {
     opacity: 1;
     transition-delay: calc(var(--speed) * 1.4);
   }
-  .glass-link:hover .glass-shard {
+  .glass-link:not(:disabled):hover .glass-shard {
     opacity: 1;
     transform: none;
   }

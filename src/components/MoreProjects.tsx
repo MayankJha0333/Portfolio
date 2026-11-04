@@ -1,6 +1,9 @@
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react/ssr";
 import { moreProjects, profile } from "@/content/site";
+import { GlassFill } from "./GlassFill";
 import { RevealText } from "./RevealText";
+
+const cardLink = "glass-link inline-flex h-10 items-center gap-1.5 rounded-full border border-line px-4";
 
 export function MoreProjects() {
   return (
@@ -15,8 +18,9 @@ export function MoreProjects() {
           href={`${profile.github}?tab=repositories`}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-medium text-muted hover:text-ink"
+          className="glass-link inline-flex h-11 items-center gap-1.5 rounded-full border border-line px-5 text-sm font-medium"
         >
+          <GlassFill />
           All repositories <ArrowUpRight size={14} weight="bold" />
         </a>
       </div>
@@ -30,12 +34,14 @@ export function MoreProjects() {
             <h3 className="text-lg font-semibold tracking-[-0.02em]">{p.name}</h3>
             <p className="mt-2 leading-relaxed text-muted">{p.summary}</p>
             <p className="mt-4 text-sm text-muted/80">{p.stack}</p>
-            <div className="mt-auto flex gap-5 pt-6 text-sm font-medium">
-              <a href={p.code} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-ink">
+            <div className="mt-auto flex gap-2 pt-6 text-sm font-medium">
+              <a href={p.code} target="_blank" rel="noreferrer" className={cardLink}>
+                <GlassFill />
                 <GithubLogo size={15} weight="bold" /> Code
               </a>
               {p.live && (
-                <a href={p.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-muted transition-colors hover:text-ink">
+                <a href={p.live} target="_blank" rel="noreferrer" className={cardLink}>
+                  <GlassFill />
                   Live <ArrowUpRight size={14} weight="bold" />
                 </a>
               )}
