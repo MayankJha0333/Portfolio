@@ -58,6 +58,7 @@ The concept is a design-tool canvas: the hero headline sits in a live selection 
 - The showreel is a 3D shatter (`ShatterReel.tsx`, Three.js): the video is cut into glass triangles that fly in and lock together as you scroll. Three.js loads only when that section is near the screen.
 - The toolkit is two crossing, tilted bands that run in opposite directions (`Toolkit.tsx`). A page-wide moving colour background lives in `Ambient.tsx`.
 - Selected Work is one pinned browser frame (`WorkStage.tsx`, desktop only): each screen shatters into the next as you scroll. Phones and reduced motion get plain cards (`Work.tsx`).
+- Project links use Glass lock (`ProjectLinks.tsx`, `.glass-link` in `globals.css`): on hover, six triangles of the product colour fly in and lock into a solid fill.
 - Scroll motion: About text lights up word by word (`ScrollWords.tsx`), the footer name stretches (`StretchName.tsx`).
 - Smooth scrolling is Lenis (`SmoothScroll.tsx`), off on touch screens and for reduced motion.
 - Every animation is off when the visitor's system asks for reduced motion.

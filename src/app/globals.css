@@ -219,6 +219,83 @@ textarea:focus-visible,
   opacity: 1;
 }
 
+/*
+  Glass lock: on hover, six triangles of the product colour fly in and lock into a
+  solid fill. The showreel's shatter at button size. --tint is set by ProjectLinks.
+*/
+.glass-link {
+  --speed: 350ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  isolation: isolate;
+  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
+}
+.glass-link:focus-visible {
+  border-radius: 9999px;
+}
+.glass-fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glass-solid,
+.glass-shard {
+  position: absolute;
+  inset: 0;
+  background: var(--tint);
+  opacity: 0;
+}
+.glass-shard {
+  transform: translate(var(--x), var(--y)) rotate(var(--r));
+  transition: transform var(--speed) var(--ease), opacity var(--speed) var(--ease);
+  transition-delay: calc(var(--i) * var(--speed) * 0.09);
+}
+.glass-solid {
+  transition: opacity 80ms linear;
+}
+/* Fills the hairlines between shards once they've landed. */
+.glass-link:focus-visible .glass-solid {
+  opacity: 1;
+  transition-delay: calc(var(--speed) * 1.4);
+}
+.glass-link:focus-visible .glass-shard {
+  opacity: 1;
+  transform: none;
+}
+.glass-link:focus-visible {
+  color: #07081a;
+  border-color: var(--tint);
+}
+/* Hover only where hovering exists, so a tap doesn't leave the button stuck in colour. */
+@media (hover: hover) {
+  .glass-link:hover {
+    color: #07081a;
+    border-color: var(--tint);
+  }
+  .glass-link:hover .glass-solid {
+    opacity: 1;
+    transition-delay: calc(var(--speed) * 1.4);
+  }
+  .glass-link:hover .glass-shard {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Reduced motion: the same colour change, with nothing flying. */
+@media (prefers-reduced-motion: reduce) {
+  .glass-link,
+  .glass-solid,
+  .glass-shard {
+    transition: none;
+  }
+  .glass-shard {
+    transform: none;
+  }
+}
+
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
