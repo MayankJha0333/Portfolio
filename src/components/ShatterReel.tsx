@@ -3,6 +3,8 @@
 import { Pause, Play } from "@phosphor-icons/react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { featured } from "@/content/site";
+import { damp, rand, triangulate } from "./shards";
 import { Showreel } from "./Showreel";
 
 /*
@@ -10,6 +12,9 @@ import { Showreel } from "./Showreel";
   fly in from the right and lock together as you scroll, with loose shards
   still drifting around the edges. Three.js loads only when this section
   is close to the screen. Reduced motion gets the plain video.
+
+  The merge runs only while the section is pinned, and it can't fall more than
+  MAX_LAG behind the scroll, so even a hard flick finishes it well before release.
 */
 
 const COLS = 14;
@@ -17,6 +22,7 @@ const ROWS = 8;
 const LOOSE = 70; // shards that never lock in and keep drifting
 const W = 16;
 const H = 9;
+const MAX_LAG = 0.08;
 
 const vertexShader = /* glsl */ `
   uniform float uProgress;
@@ -103,40 +109,11 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-function rand(seed: number) {
-  // Small deterministic PRNG so the shatter pattern is the same on every visit.
-  let s = seed;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
-
 type Three = typeof import("three");
 
 function buildGeometry(THREE: Three) {
   const r = rand(20261026);
-  // Jittered grid points keep the triangles irregular but still tiling perfectly.
-  const pts: [number, number][] = [];
-  for (let j = 0; j <= ROWS; j++) {
-    for (let i = 0; i <= COLS; i++) {
-      const edgeX = i === 0 || i === COLS;
-      const edgeY = j === 0 || j === ROWS;
-      const jx = edgeX ? 0 : (r() - 0.5) * 0.7;
-      const jy = edgeY ? 0 : (r() - 0.5) * 0.7;
-      pts.push([((i + jx) / COLS) * W - W / 2, ((j + jy) / ROWS) * H - H / 2]);
-    }
-  }
-  const at = (i: number, j: number) => pts[j * (COLS + 1) + i];
-
-  const tris: [number, number][][] = [];
-  for (let j = 0; j < ROWS; j++) {
-    for (let i = 0; i < COLS; i++) {
-      const a = at(i, j), b = at(i + 1, j), c = at(i + 1, j + 1), d = at(i, j + 1);
-      if (r() > 0.5) tris.push([a, b, c], [a, c, d]);
-      else tris.push([a, b, d], [b, c, d]);
-    }
-  }
+  const tris = triangulate(COLS, ROWS, W, H, r);
 
   // Loose shards: random triangles cut from random parts of the video.
   const loose: [number, number][][] = [];
@@ -217,14 +194,17 @@ export function ShatterReel() {
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
+  const [reelIndex, setReelIndex] = useState(0);
 
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end end"] });
-  const assemble = useTransform(scrollYProgress, [0.12, 0.72], [0, 1], { clamp: true });
-  const captionOpacity = useTransform(scrollYProgress, [0.72, 0.85], [0, 1]);
-  const captionY = useTransform(scrollYProgress, [0.72, 0.85], [20, 0]);
-  const introOpacity = useTransform(scrollYProgress, [0.1, 0.25, 0.45], [0, 1, 0]);
+  // 0 is the moment the section pins, 1 the moment it lets go.
+  const { scrollYProgress: pinned } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const assemble = useTransform(pinned, [0.02, 0.62], [0, 1]);
+  const captionOpacity = useTransform(pinned, [0.62, 0.7], [0, 1]);
+  const captionY = useTransform(pinned, [0.62, 0.7], [20, 0]);
+  const controlsEvents = useTransform(pinned, (v) => (v > 0.62 ? "auto" : "none"));
+  const introOpacity = useTransform(pinned, [0.06, 0.22], [1, 0]);
 
-  // Play only while on screen and not paused by the visitor.
+  // Play only while on screen and not paused by the visitor. Starts a little early so frames are ready.
   useEffect(() => {
     const video = videoRef.current;
     const section = sectionRef.current;
@@ -236,7 +216,7 @@ export function ShatterReel() {
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) video.play().catch(() => {});
       else video.pause();
-    });
+    }, { rootMargin: "400px 0px" });
     io.observe(section);
     return () => io.disconnect();
   }, [reduce, userPaused]);
@@ -276,6 +256,14 @@ export function ShatterReel() {
         texture.magFilter = THREE.LinearFilter;
         texture.generateMipmaps = false;
 
+        // The poster fills the glass until the video has a frame, so shards are never black.
+        let hasImage = false;
+        const poster = new THREE.TextureLoader().load("/media/showreel-poster.jpg", () => {
+          hasImage = true;
+        });
+        poster.minFilter = THREE.LinearFilter;
+        poster.generateMipmaps = false;
+
         const css = getComputedStyle(document.documentElement);
         // Raw 0-1 RGB from a CSS hex colour, matching the raw video pixels.
         const rgb = (name: string, fallback: string) => {
@@ -288,13 +276,19 @@ export function ShatterReel() {
           fragmentShader,
           side: THREE.DoubleSide,
           uniforms: {
-            uMap: { value: texture },
+            uMap: { value: poster },
             uProgress: { value: 0 },
             uTime: { value: 0 },
             uRimA: { value: rgb("--accent", "#8b7dff") },
             uRimB: { value: rgb("--accent-2", "#3dd8ff") },
           },
         });
+        const showVideo = () => {
+          hasImage = true;
+          material.uniforms.uMap.value = texture;
+        };
+        if (video.readyState >= 2) showVideo();
+        else video.addEventListener("loadeddata", showVideo, { once: true });
 
         const geometry = buildGeometry(THREE);
         const mesh = new THREE.Mesh(geometry, material);
@@ -308,8 +302,9 @@ export function ShatterReel() {
           renderer.setSize(w, h, false);
           camera.aspect = w / h;
           const t = 2 * Math.tan((camera.fov * Math.PI) / 360);
-          // Fit the assembled video: 86% of the width or 70% of the height, whichever is tighter.
-          camera.position.z = Math.max(W / (0.86 * camera.aspect * t), H / (0.7 * t));
+          // Fit the assembled video: 86% of the width or 66% of the height, whichever is tighter.
+          // The height leaves room for the caption under the nav and the controls below.
+          camera.position.z = Math.max(W / (0.86 * camera.aspect * t), H / (0.66 * t));
           camera.updateProjectionMatrix();
         }
         resize();
@@ -328,20 +323,35 @@ export function ShatterReel() {
         const vis = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
         vis.observe(section);
 
-        let smooth = 0;
+        let smooth = assemble.get();
+        let merged = false;
         let raf = 0;
         let first = true;
         const clock = new THREE.Clock();
         const tick = () => {
           raf = requestAnimationFrame(tick);
-          if (!visible) return;
-          const t = clock.getElapsedTime();
-          smooth += (assemble.get() - smooth) * 0.08;
+          const dt = Math.min(clock.getDelta(), 0.1);
+          const target = assemble.get();
+          // Off screen there's nothing to animate: come back already at the right state.
+          if (!visible) {
+            smooth = target;
+            return;
+          }
+          smooth = damp(smooth, target, 9, dt);
+          smooth = Math.min(Math.max(smooth, target - MAX_LAG), target + MAX_LAG);
+          // Start from the first product at the moment the picture locks together.
+          if (smooth > 0.995 && !merged) {
+            merged = true;
+            video.currentTime = 0;
+          } else if (smooth < 0.5) {
+            merged = false;
+          }
+          if (!hasImage) return;
           material.uniforms.uProgress.value = smooth;
-          material.uniforms.uTime.value = t;
+          material.uniforms.uTime.value = clock.elapsedTime;
           const loose = 1 - smooth;
-          group.rotation.y += ((-0.38 * loose + mx * 0.08) - group.rotation.y) * 0.06;
-          group.rotation.x += ((0.16 * loose + my * 0.05) - group.rotation.x) * 0.06;
+          group.rotation.y = damp(group.rotation.y, -0.38 * loose + mx * 0.08, 4, dt);
+          group.rotation.x = damp(group.rotation.x, 0.16 * loose + my * 0.05, 4, dt);
           group.position.x = 1.2 * loose;
           renderer.render(scene, camera);
           if (first) {
@@ -356,8 +366,10 @@ export function ShatterReel() {
           ro.disconnect();
           vis.disconnect();
           window.removeEventListener("pointermove", onMove);
+          video.removeEventListener("loadeddata", showVideo);
           geometry.dispose();
           material.dispose();
+          poster.dispose();
           texture.dispose();
           renderer.dispose();
           renderer.domElement.remove();
@@ -385,7 +397,7 @@ export function ShatterReel() {
   }
 
   return (
-    <section ref={sectionRef} aria-label="Showreel" className="relative h-[220vh] lg:h-[280vh]">
+    <section ref={sectionRef} aria-label="Showreel" className="relative h-[300vh] lg:h-[360vh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {/* Light behind the glass */}
         <div
@@ -421,20 +433,43 @@ export function ShatterReel() {
           preload="auto"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
+          onTimeUpdate={(e) => {
+            const v = e.currentTarget;
+            if (v.duration) setReelIndex(Math.min(Math.floor((v.currentTime / v.duration) * featured.length), featured.length - 1));
+          }}
           className="pointer-events-none absolute h-px w-px opacity-0"
           aria-label="Showreel of Dovli, CrestClip, Rent Rush, Klaude, VizPilot and Sahayak"
         />
 
         <motion.p
           style={{ opacity: captionOpacity, y: captionY }}
-          className="display pointer-events-none absolute inset-x-0 top-[6svh] z-10 px-4 text-center text-[clamp(1.4rem,3vw,2.5rem)] leading-tight [--wdth:120] [--wght:750]"
+          className="display pointer-events-none absolute inset-x-0 top-20 z-10 px-4 text-center text-[clamp(1.25rem,2.4vw,2rem)] leading-tight [--wdth:120] [--wght:750] lg:top-[88px]"
         >
           Six products, designed, built and shipped.
         </motion.p>
         <motion.div
-          style={{ opacity: captionOpacity }}
-          className="absolute bottom-[4svh] right-4 z-10 sm:right-6 lg:right-12"
+          style={{ opacity: captionOpacity, pointerEvents: controlsEvents }}
+          className="absolute inset-x-4 bottom-[4svh] z-10 flex items-center justify-center gap-4 sm:inset-x-6 lg:inset-x-12"
         >
+          {/* Shows which product is on screen; click to jump to one that was missed */}
+          <div className="glass flex flex-wrap items-center justify-center gap-1 rounded-[22px] p-1">
+            {featured.map((p, i) => (
+              <button
+                key={p.slug}
+                type="button"
+                aria-current={reelIndex === i || undefined}
+                onClick={() => {
+                  const v = videoRef.current;
+                  if (v?.duration) v.currentTime = (i / featured.length) * v.duration + 0.01;
+                }}
+                className={`h-9 rounded-full px-3 text-xs font-medium transition-colors sm:text-sm ${
+                  reelIndex === i ? "bg-ink text-bg" : "text-muted hover:text-ink"
+                }`}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
           <button
             type="button"
             onClick={() => setUserPaused(playing)}

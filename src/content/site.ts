@@ -214,34 +214,48 @@ export const contributions: Contribution[] = [
 
 export const mergedTotal = 30;
 
-export type Role = { company: string; title?: string; period: string; detail: string };
+export type Role = {
+  company: string;
+  title: string;
+  period: string;
+  location: string;
+  detail?: string;
+  current?: boolean;
+};
 
 export const experience: Role[] = [
   {
-    company: "Pulsegen",
-    title: "Full Stack Intern",
-    period: "Now",
-    detail: "Building AI-first product intelligence tools.",
+    company: "SellerGeni",
+    title: "SDE",
+    period: "Oct 2025 - Present",
+    location: "Bengaluru",
+    current: true,
   },
   {
-    company: "Apiero Medica",
-    period: "From Jun 2023",
+    company: "Pulse",
+    title: "Full Stack Developer",
+    period: "Oct 2024 - Sep 2025",
+    location: "Hyderabad",
+    detail: "Built AI-first product intelligence tools.",
+  },
+  {
+    company: "Apiero Technica",
+    title: "Full Stack Developer",
+    period: "Jul 2023 - Jun 2024",
+    location: "Bhopal",
     detail: "Built a teleconsultation system to bring medical services to rural areas.",
   },
   {
-    company: "Bharat Heavy Electricals (BHEL)",
-    period: "Apr - May 2023",
-    detail: "Planned the move off Oracle Forms 11g and shipped the BHEL Pharmacy System as a proof of concept.",
-  },
-  {
-    company: "Acompworld Technosoft",
+    company: "Acompworld",
+    title: "Frontend Developer",
     period: "Feb - Apr 2023",
+    location: "Bhopal",
     detail: "Worked on a custom CMS and an inventory system with procurement, vendor tracking and QR tagging.",
   },
 ];
 
 export const education = {
-  school: "Lakshmi Narain College of Technology & Science",
+  school: "LNCT Group of Colleges",
   degree: "B.Tech, Computer Science",
   period: "2021 - 2025",
 };

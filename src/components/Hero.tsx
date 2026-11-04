@@ -11,8 +11,8 @@ export function Hero() {
           <div className="rise [--d:700ms] lg:col-span-6">
             <p className="max-w-[44ch] text-lg leading-relaxed text-muted sm:text-xl">
               <span className="font-medium text-ink">I&apos;m {profile.name}.</span> I design and build web apps,
-              mobile apps and VS Code extensions, often with AI inside, and see them through to launch. Currently a
-              full-stack intern at Pulsegen.
+              mobile apps and VS Code extensions, often with AI inside, and see them through to launch. Currently an
+              SDE at SellerGeni in Bengaluru.
             </p>
           </div>
           <div className="rise flex flex-wrap items-center gap-3 [--d:820ms] lg:col-span-6 lg:justify-end">
